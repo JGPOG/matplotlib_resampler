@@ -2,9 +2,9 @@
 ### High Performance Time-Series Visualization
 
 A python package for universal **data downsampling and interactive visualization** 
-using Matplotlib and tsodwnsampler.
+using Matplotlib and tsdownsampler.
 
-`matplot_enhanced` improves scalability of `Matplotlib` for visualizing massive time-series
+`matplotlib_resampler` improves scalability of `Matplotlib` for visualizing massive time-series
 datasets. The library *dynamically* **resamples time-series data respective to the current
 graph view**, ensuring fast, responsive updates during panning or zooming. 
 
