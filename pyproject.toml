@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "matplotlib_resampler"
+version = "0.1.0"
+authors = [{ name="Julian", email="JAGM092000@gmail.com" }, { name="Tinh", email="hisemail@ifheconsents.com" }]
+description = "This package wraps an existing matplotlib plot object and enables MinMaxLLTB downsampling for large datasets (Billions+ points)."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "matplotlib>=3.11.1",
+    "numpy>=2.5.2",
+    "tsdownsample>=0.1.5.1",
+]
