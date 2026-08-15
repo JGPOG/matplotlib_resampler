@@ -25,22 +25,13 @@ This works with more than 1 plot and can visualize over 1 Billion data points.
 ## Installation
 
 Clone the repository:
-git clone https:....
+git clone https://github.com/JGPOG/matplotlib_resampler.git
 
 Install the package:
-pip install -e .
-
-The package automatically installs its dependencies:
-- NumPy
-- Pandas
-- Matplotlib
-- tsdownsample
- 
-Or to install the dependencies manually:
-pip install numpy pandas matplotlib tsdownsample
+pip install matplotlib_resampler\dist\matplotlib_resampler-0.1.0-py3-none-any.whl"
 
 ## Usage
-Add dynamic aggregation to your figure with zero code overhead.
+Add dynamic aggregation to your figure with minimal overhead.
 
 ```python 
 import matplotlib.pyplot as plt
