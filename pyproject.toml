@@ -19,3 +19,6 @@ dependencies = [
     "numpy>=2.5.2",
     "tsdownsample>=0.1.5.1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/JGPOG/matplotlib_resampler.git"
