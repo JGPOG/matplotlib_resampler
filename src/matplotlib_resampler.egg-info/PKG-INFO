@@ -1,39 +1,22 @@
-Metadata-Version: 2.4
-Name: matplotlib_resampler
-Version: 0.1.0
-Summary: This package wraps an existing matplotlib plot object and enables MinMaxLLTB downsampling for large datasets (Billions+ points).
-Author-email: Julian <JAGM092000@gmail.com>, Tinh <hisemail@ifheconsents.com>
-Classifier: Programming Language :: Python :: 3
-Classifier: License :: OSI Approved :: MIT License
-Classifier: Operating System :: OS Independent
-Requires-Python: >=3.8
-Description-Content-Type: text/markdown
-License-File: LICENSE
-Requires-Dist: matplotlib>=3.11.1
-Requires-Dist: numpy>=2.5.2
-Requires-Dist: tsdownsample>=0.1.5.1
-Dynamic: license-file
-
 # Matplotlib Dynamic Downsampler
 ### High Performance Time-Series Visualization
 
 A python package for universal **data downsampling and interactive visualization** 
-using Matplotlib and tsodwnsampler.
+using Matplotlib and tsdownsampler.
 
-`matplot_enhanced` improves scalability of `Matplotlib` for visualizing massive time-series
-datasets. The library *dynamically* **aggregates time-series data respective to the current
+`matplotlib_resampler` improves scalability of `Matplotlib` for visualizing massive time-series
+datasets. The library *dynamically* **resamples time-series data respective to the current
 graph view**, ensuring fast, responsive updates during panning or zooming. 
 
 This aggregation functionality is achieved by utilizing highly optimized data point selection
 algorithms from **tsdownsample**. Our default data aggregation method is MinMaxLTTB (defaulting
 to 5,000 points per view), which guarantees maximum visual fidelity and preserves narrow data spikes.
 
-This works with more than 1 plot and can visualize over 200,000,000 data points.
+This works with more than 1 plot and can visualize over 1 Billion data points.
 
 ## Features
 
-- **Convenient and "Plug & Play"**: Just pass your existing plt object to our enhance(plt, n_out=num_example) 
-    method. Preserves all original Matplotlib styling, colors, labels and figure configurations.
+- **Convenient and "Plug & Play"**: Just pass your existing plt object to our class constructor. Preserves all original Matplotlib styling, colors, labels and figure configurations.
 - **No Backend Servers Required**: Requires zero web servers, Dash apps, or Jupyter widget overhead.
     Runs entirely via Matplotlib's native event backend.
 - **Efficient visualization of large datasets**: Dynamic zooming in and out while keeping high fidelity
@@ -42,77 +25,39 @@ This works with more than 1 plot and can visualize over 200,000,000 data points.
 ## Installation
 
 Clone the repository:
-git clone https:....
+git clone https://github.com/JGPOG/matplotlib_resampler.git
 
 Install the package:
-pip install -e .
-
-The package automatically installs its dependencies:
-- NumPy
-- Pandas
-- Matplotlib
-- tsdownsample
- 
-Or to install the dependencies manually:
-pip install numpy pandas matplotlib tsdownsample
+pip install matplotlib_resampler\dist\matplotlib_resampler-0.1.0-py3-none-any.whl
 
 ## Usage
-Add dynamic aggregation to your figure with zero code overhead.
+Add dynamic aggregation to your figure with minimal overhead.
 
 ```python 
-import numpy as np
 import matplotlib.pyplot as plt
-import matplot_enhanced
+import numpy as np
+from matplotlib_resampler import DynamicDownsampler
 
-# Generate data (50M points)
-num_points = 50_000_000
-x = np.linspace(0, 6 * np.pi, num_points)
-y = np.sin(x)
+plt.figure(figsize=(10, 5))
+plt.plot(t, signal, label="Noisy 1 Hz Sine Wave")
 
-# Define noise levels and number of spikes
-noise_levels = [0.1, 0.3, 0.5, 0.7]
-num_spikes = 10
-spike_magnitude = 5
-
-# Create a figure and a set of subplots
-fig, axes = plt.subplots(4, 1, figsize=(10, 8), sharex=True)
-fig.suptitle('Sine Waves with Varying Noise and Spikes', fontsize=16)
-
-for i, ax in enumerate(axes):
-    noise_level = noise_levels[i]
-    
-    # Add Gaussian noise
-    noisy_y = y + np.random.normal(0, noise_level, num_points)
-    # Add random spikes
-    spike_indices = np.random.choice(num_points, num_spikes, replace=False)
-    spiky_y = noisy_y.copy()
-    # Randomly make spikes positive or negative
-    spike_directions = np.random.choice([-1, 1], num_spikes)
-    spiky_y[spike_indices] += spike_directions * spike_magnitude
-    # Plot the sine wave
-    ax.plot(x, spiky_y, label=f'Noise Level: {noise_level}')
-    ax.set_ylabel('Amplitude')
-    ax.legend(loc='upper right')
-    ax.grid(True)
-
-# Set common labels
-plt.xlabel('X-axis')
-plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-
-# Wrap the figure to enable dynamic downsampling (default resolution is 5,000)
-matplot_enhanced.enhance(plt, n_out=5000)
-
+plt.title("1 Hz Noisy Sine Wave with 10 Random Spikes")
+plt.xlabel("Time (s)")
+plt.ylabel("Amplitude")
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.legend(loc="upper right")
+plt.tight_layout()
+# Simply call the class and place the object
+DynamicDownsampler(plt)
 plt.show()
 ```
 
-`In usage demo, 200,000,000 data points across 4 subplots (50M each) are visualized!`
+`In example demo, 200,000,000 data points across 4 subplots (50M each) are visualized!`
 
-## Matplotlib Standalone vs Matplotlib + Enhancer
-matplot_enhance() acts as an invisible wrapper around standard Matplotlib figures.
-It adds visualization scalability to line charts by dynamically aggregating the data
-relative to the current front-end view bounds (xlim).
-- **Standard Matplotlib** attempts to render every single data point, which can freeze
-    your UI or crash when dealing with millions of rows
+## Matplotlib Standalone vs Matplotlib + Resampler
+DynamicDownsampler() acts as an invisible wrapper around standard Matplotlib figures.
+It adds visualization scalability to line charts by resampling the data based on GUI zoom or pan events. 
+- **Standard Matplotlib** attempts to render more points than the computer may be capable of handling. 
 - **matplotlib_enhancer** intercepts these points *before* rendering and only plots
     a mathematically representative downsampled version. When you zoom in, it
     automatically recalculates and reveals the high resolution details for that window.
@@ -120,10 +65,7 @@ relative to the current front-end view bounds (xlim).
 ## Important Considerations & Tips
 
 - **Sorting Requirement**: The underlying tsdownsample Rust engine requires your X-axis data
-    to be monotonic/sorted and free of NaN values. This wrapper automatically cleans and sorts the
-    provided arrays on initialization to guarantee stability.
+    to be monotonic/sorted and free of NaN values.
 - **Aliasing and Signal Spikes**: MinMaxLTTB ensures extreme peaks and troughs in raw data are never
     accidentally skipped when rendering a zoomed out view.
-- **Exporting/Saving**: Because the plot dynamically updates based on current view, saving the plot
-    directly to PDF/PNG (e.g., plt.savefig()) will save the *currently downsampled* state of the view
-    you are looking at.
+- **None Networked/Portable Installations**: If you have installed using a non networked or portable folder, there is a chance you receive an error about the figure not being interactive and it won't plot. In this case you need to install PyQt6. 
