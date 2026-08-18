@@ -12,18 +12,13 @@ requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux"
 ]
 dependencies = [
     "matplotlib>=3.11.1",
     "numpy>=2.5.2",
     "tsdownsample>=0.1.5.1",
 ]
-
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: Windows 10/11",
-]
-
 [project.urls]
 Homepage = "https://github.com/JGPOG/matplotlib_resampler.git"
