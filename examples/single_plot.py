@@ -1,24 +1,20 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib_resampler import DynamicDownsampler
-
-# Set seed for reproducible random noise and spikes
 np.random.seed(42)
 
-# Parameters
 fs = 1_000_000  # Sampling frequency (Hz)
 duration = 1  # Duration in seconds
 freq = 1.0  # Sine wave frequency (Hz)
 
-# 1. Generate time vector and 1 Hz sine wave
 t = np.linspace(0, duration, int(fs * duration), endpoint=False)
 sine_wave = np.sin(2 * np.pi * freq * t)
 
-# 2. Add Gaussian noise
 noise = np.random.normal(loc=0.0, scale=0.2, size=len(t))
 noisy_sine = sine_wave + noise
 
-# 3. Add 10 random spikes
+# We add 10 random spikes to show that the downsampler does not simply keep every nth sample. You should more often than not see all the spikes. 
+# Extreme noise may throw off the downsampler
 num_spikes = 10
 spike_indices = np.random.choice(len(t), size=num_spikes, replace=False)
 spike_amplitudes = np.random.choice([-1, 1], size=num_spikes) * np.random.uniform(
@@ -28,7 +24,6 @@ spike_amplitudes = np.random.choice([-1, 1], size=num_spikes) * np.random.unifor
 signal = noisy_sine.copy()
 signal[spike_indices] += spike_amplitudes
 
-# 4. Plot using matplotlib
 plt.figure(figsize=(10, 5))
 plt.plot(t, signal, label="Noisy 1 Hz Sine Wave")
 
@@ -38,5 +33,6 @@ plt.ylabel("Amplitude")
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.legend(loc="upper right")
 plt.tight_layout()
-DynamicDownsampler(plt)
+# Simple use of the resampler
+DynamicDownsampler(plt) 
 plt.show()
