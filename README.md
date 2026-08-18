@@ -65,3 +65,4 @@ It adds visualization scalability to line charts by resampling the data based on
     to be monotonic/sorted and free of NaN values.
 - **Aliasing and Signal Spikes**: MinMaxLTTB ensures extreme peaks and troughs in raw data are never
     accidentally skipped when rendering a zoomed out view.
+- **None Networked/Portable Installations**: If you have installed using a non networked or portable folder, there is a chance you receive an error about the figure not being interactive and it won't plot. In this case you need to install PyQt6. 
