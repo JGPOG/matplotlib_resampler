@@ -47,6 +47,7 @@ plt.ylabel("Amplitude")
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.legend(loc="upper right")
 plt.tight_layout()
+# Simply call the class and place the object
 DynamicDownsampler(plt)
 plt.show()
 ```
