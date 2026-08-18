@@ -34,7 +34,9 @@ pip install matplotlib_resampler\dist\matplotlib_resampler-0.1.0-py3-none-any.wh
 Add dynamic aggregation to your figure with minimal overhead.
 
 ```python 
+import numpy as np
 import matplotlib.pyplot as plt
+from tsdownsample import MinMaxLTTBDownsampler
 
 plt.figure(figsize=(10, 5))
 plt.plot(t, signal, label="Noisy 1 Hz Sine Wave")
