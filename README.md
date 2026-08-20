@@ -52,6 +52,8 @@ DynamicDownsampler(plt)
 plt.show()
 ```
 
+![Demo](assets/demo.gif)
+
 `In example demo, 200,000,000 data points across 4 subplots (50M each) are visualized!`
 
 ## Matplotlib Standalone vs Matplotlib + Resampler
