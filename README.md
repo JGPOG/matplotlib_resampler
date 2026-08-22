@@ -25,6 +25,7 @@ This works with more than 1 plot and can visualize over 1 Billion data points.
 ## Installation
 
 **Option 1**
+
 Clone the repository:
 ```python
 git clone https://github.com/JGPOG/matplotlib_resampler.git
@@ -37,7 +38,8 @@ pip install matplotlib_resampler\dist\matplotlib_resampler-0.1.0-py3-none-any.wh
 
 OR -->
 
-*Option 2**
+**Option 2**
+
 ```python 
 pip install matplotlib-resampler
 ```
