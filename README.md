@@ -25,14 +25,20 @@ This works with more than 1 plot and can visualize over 1 Billion data points.
 ## Installation
 
 Clone the repository:
-```git clone https://github.com/JGPOG/matplotlib_resampler.git```
+```python
+git clone https://github.com/JGPOG/matplotlib_resampler.git
+```
 
 Install the package:
-```pip install matplotlib_resampler\dist\matplotlib_resampler-0.1.0-py3-none-any.whl```
+```python
+pip install matplotlib_resampler\dist\matplotlib_resampler-0.1.0-py3-none-any.whl
+```
 
 OR -->
 
-```pip install matplotlib-resampler```
+```python 
+pip install matplotlib-resampler
+```
 
 ## Usage
 Add dynamic aggregation to your figure with minimal overhead.
